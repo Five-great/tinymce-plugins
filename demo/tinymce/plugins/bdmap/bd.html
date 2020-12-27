@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>百度地图API自定义地图</title>
+<style>
+	html,body{margin:0;padding:0; width:100vw!important; height: 100vh!important;position: relative; overflow: hidden; }
+	.iw_poi_title {color:#CC5522;font-size:14px;font-weight:bold;overflow:hidden;padding-right:13px;white-space:nowrap}
+	.iw_poi_content {font:12px arial,sans-serif;overflow:visible;padding-top:4px;white-space:-moz-pre-wrap;word-wrap:break-word}
+	.infoBoxContent{font-size:12px;padding:10px 8px;margin-bottom:3px;box-sizing: border-box;-moz-box-sizing:border-box; /* Firefox */-webkit-box-sizing:border-box; /* Safari */ line-height: 1.5;letter-spacing: 1px;background: rgba(255,255,255,0.9); border: none; }
+	.infoBoxContent>i:last-child{display: block; content: ""; width: 15px;transform: rotate(45deg); height: 15px;position: absolute;bottom:-5px;left: 50%; margin-left:-8px;z-index: -1; background:inherit ;}
+	.infoBoxContent *{line-height: 1.5; margin: 0;padding: 0; }
+	.BMap_cpyCtrl.BMap_noprint.anchorBL{display: none!important;}
+	.anchorBL{display: none!important;}
+	.btnList{ position: absolute; bottom: 0;left: 0; height: 20px;width: 100vw;background: transparent; text-align: center;}
+	.btnList >span{ display: inline-block; margin-right:20px;}
+	.btnList >span>i{ display: block; position: relative; text-align: center;color: #333;font-size:12px; margin-top:-5px; letter-spacing: 2px;}
+	.gotoDH{display: block; position: absolute;background-color: rgba(255,255,255,0.9); padding-top:5px; box-shadow: 0 4px 8px 2px rgba(67, 108, 221, 0.3); width: 40px;height: 35px; border-radius: 20px; text-align:center ; bottom: 8%;right: 1%;}
+</style>
+<script src="//api.map.baidu.com/api?v=3.0&ak=ONwdanPtvCDLHBSm184T2ynP"></script>
+<script src="//api.map.baidu.com/library/InfoBox/1.2/src/InfoBox_min.js"></script>
+<script src="//webapi.amap.com/maps?v=1.4.15&key=608d75903d29ad471362f8c58c550daf"></script>
+</head>
+
+<body onload="initMap();">
+  <!--百度地图容器-->
+  <div style="width:100vw;height:100vh;min-height: 100px;" id="dituContent"></div>
+  <a class="gotoDH" id="gotoDHID" style="display: none;" href="javascript:gotoDH()"><svg t="1604544065701" class="icon" viewBox="0 0 1163 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="40447" width="30" height="30"><path d="M972.450909 566.458182c72.704-100.584727 128.581818-185.972364 128.581818-282.530909a275.409455 275.409455 0 1 0-550.562909 0c0 86.714182 47.872 169.495273 110.452364 258.955636l-75.310546 25.786182-145.943272-49.361455a198.190545 198.190545 0 0 0 29.579636-97.28 150.644364 150.644364 0 1 0-300.544 0 220.788364 220.788364 0 0 0 37.236364 110.452364h-0.651637L0 1024l310.202182-125.230545L592.453818 1024l264.983273-125.230545L1163.636364 1024z m-146.618182-420.445091a138.030545 138.030545 0 1 1-133.655272 137.937454 135.842909 135.842909 0 0 1 133.678545-137.937454z m-506.763636 197.818182a78.452364 78.452364 0 1 1-72.983273 78.266182 75.822545 75.822545 0 0 1 73.006546-78.312728z m532.945454 480.581818L592.290909 944.872727l-276.945454-120.413091-206.545455 100.654546 118.365091-326.725818 19.293091-3.909819c23.505455 33.629091 49.198545 69.096727 72.634182 108.497455 29.160727-49.896727 59.834182-91.322182 86.109091-129.396364l180.712727 62.068364 113.105454-39.377455c41.402182 56.808727 85.946182 116.759273 126.836364 182.830546 38.330182-62.976 77.963636-117.922909 115.130182-168.890182l119.342545 318.836364z m-318.138181-185.157818a81.175273 81.175273 0 0 0-80.942546 81.454545c0 44.939636 80.942545 135.400727 80.942546 135.400727s80.965818-90.461091 80.965818-135.400727a81.175273 81.175273 0 0 0-80.872727-81.501091z m0 122.042182a40.052364 40.052364 0 1 1 39.842909-40.052364 39.936 39.936 0 0 1-39.749818 40.005818z" p-id="40448" fill="#1296db"></path></svg></a>
+</body>
+<script>
+	  function calcPageWidth(doc) {
+        var cWidth = Math.max(doc.body.clientWidth, doc.documentElement.clientWidth)
+        var sWidth = Math.max(doc.body.scrollWidth, doc.documentElement.scrollWidth)
+        var width  = Math.max(cWidth, sWidth)
+        return width;
+     }
+	function getParam(name) {
+		return location.href.match(new RegExp('[?&]' + name + '=([^?&]+)', 'i')) ? decodeURIComponent(RegExp.$1) : '';
+	}
+
+	var centerParam = getParam('center');
+	var zoomParam = getParam('zoom');
+	var widthParam = getParam('bwidth');
+	var heightParam = getParam('bheight');
+	var markersParam = getParam('center');
+	var infoBoxHtml = getParam('boxhtml');
+	var infoBoxColor = getParam('bgColor');
+	var BDDH = getParam('DH');
+	var BDSF = getParam('SF');
+	var dName = getParam('dName')||"目的地";
+	var markersArr =""
+	var map="";
+	//创建和初始化地图函数：
+	function initMap(){
+		// [FF]切换模式后报错
+		if (!window.BMap) {
+			return;
+		}
+		var dituContent = document.getElementById('dituContent');
+		// console.log(window.s)
+		dituContent.style.width = "100vw";
+		dituContent.style.height ="100vh";
+
+		createMap();//创建地图
+		setMapEvent();//设置地图事件
+		addMapControl();//向地图添加控件
+
+		// 创建标注
+		 markersArr = markersParam.split(',');
+		var point = new BMap.Point(markersArr[0], markersArr[1]);
+		var marker = new BMap.Marker(point);
+		map.addOverlay(marker); // 将标注添加到地图中
+		// 
+		if(infoBoxHtml){
+			infoBoxHtml = infoBoxHtml.replace(/\￥/g,"'").replace(/\^/g,'"').replace(/\】/g,'>').replace(/\【/g,'<');
+			let html = '<div class="infoBoxContent" id="infoBoxContentID"><p>'+infoBoxHtml+'</p><i></i></div>' || '<div class="infoBoxContent" id="infoBoxContentID" ><p>信息弹框</p><i></i></div>'
+		var infoBox = new BMapLib.InfoBox(map,html,{
+			boxStyle:{
+			background:"rgba(255,255,255,0)"
+			,width: widthParam || "270px"
+			,closeIconMargin: "1px 1px 0 0"
+	        ,enableAutoPan: true
+	        ,align: INFOBOX_AT_TOP
+		   }
+		})
+		infoBox.open(marker);
+		document.getElementById("infoBoxContentID").style.width = widthParam;
+		document.getElementById("infoBoxContentID").style.height = heightParam;
+		if(infoBoxColor){
+			infoBoxColor=infoBoxColor.replace(/\@/g,'#').replace(/\+/g,'(').replace(/\-/g,')');
+			document.getElementById("infoBoxContentID").style.background = infoBoxColor || "rgba(255,255,255,0.95)";
+		}
+		
+		marker.addEventListener("click", function(){ 
+		if(infoBox._isOpen)infoBox.close();
+		else{
+			infoBox.open(marker);
+			document.getElementById("infoBoxContentID").style.width = widthParam;
+		   document.getElementById("infoBoxContentID").style.height = heightParam; 
+		   if(infoBoxColor){
+			infoBoxColor=infoBoxColor.replace(/\@/g,'#').replace(/\+/g,'(').replace(/\-/g,')');
+			document.getElementById("infoBoxContentID").style.background = infoBoxColor || "rgba(255,255,255,0.95)";
+		  }
+         }
+        });  
+	  }
+
+	  BDDH=="true"? document.getElementById('gotoDHID').style.display="block":'';
+	}
+
+	//创建地图函数：
+	function createMap(){
+		 map = new BMap.Map("dituContent");//在百度地图容器中创建一个地图
+		var centerArr = centerParam.split(',');
+		var point = new BMap.Point(centerArr[0], centerArr[1]);//定义一个中心点坐标
+		map.centerAndZoom(point, zoomParam);//设定地图的中心点和坐标并将地图显示在地图容器中
+		window.map = map;//将map变量存储在全局
+	}
+
+	//地图事件设置函数：
+	function setMapEvent(){
+		map.enableDragging();//启用地图拖拽事件，默认启用(可不写)
+		map.enableScrollWheelZoom();//启用地图滚轮放大缩小
+		map.enableDoubleClickZoom();//启用鼠标双击放大，默认启用(可不写)
+		map.enableAutoResize();
+		map.enableKeyboard();//启用键盘上下左右键移动地图
+	}
+
+	//地图控件添加函数：
+	function addMapControl(){
+		//向地图中添加缩放控件
+	if(BDSF=="true"){
+		var ctrl_nav = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_LARGE});
+		map.addControl(ctrl_nav);
+	 }
+		
+	}
+	function bd_encrypt(gg_lng, gg_lat) {
+	var X_PI = Math.PI * 3000.0 / 180.0;
+	var x = gg_lng, y = gg_lat;
+	var z = Math.sqrt(x * x + y * y) + 0.00002 * Math.sin(y * X_PI);
+	var theta = Math.atan2(y, x) + 0.000003 * Math.cos(x * X_PI);
+	var bd_lng = z * Math.cos(theta) + 0.0065;
+	var bd_lat = z * Math.sin(theta) + 0.006;
+	return {
+		bd_lat: bd_lat,
+		bd_lng: bd_lng
+	};
+	}
+var geolocation2='';
+	function gotoDH(){
+		AMap.plugin('AMap.Geolocation', function() {
+			geolocation2 = new AMap.Geolocation({
+				enableHighAccuracy: true,//是否使用高精度定位，默认:true
+				timeout: 10000,          //超过10秒后停止定位，默认：5s
+				buttonPosition:'RB',    //定位按钮的停靠位置
+				buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+				zoomToAccuracy: true,   //定位成功后是否自动调整地图视野到定位点
+
+			});
+	  AMap.event.addListener(geolocation2, 'complete', onComplete);//返回定位信息
+      AMap.event.addListener(geolocation2, 'error', onError);//返回定位出错信息
+		geolocation2.getCurrentPosition(function(status,result){
+			if(status=='complete'){	
+			
+			  let rp = bd_encrypt(result.position.lng, result.position.lat)
+			  gotoDHFun(rp)
+			 }else{
+			}
+		})
+    	});
+	}
+	
+	function gotoDHFun(rp){
+	let _k = "transit";
+	let _openUrl= 'http://api.map.baidu.com/direction?origin=latlng:'+rp.bd_lat+','+rp.bd_lng+'|name:当前位置&destination=latlng:'+markersArr[1]+','+markersArr[0]+'|name:'+dName+'&mode='+_k+'&region=成都&output=html&src=webapp.baidu.openAPIdemo';
+			  if(!document.getElementById("openHrefID")) { 
+				let a = document.createElement('a');
+				  a.setAttribute('href', _openUrl);
+			      a.setAttribute('id','openHrefID' );
+			      a.setAttribute('target', '_blank');
+				  document.body.appendChild(a);
+				  a.click()
+              }else{
+				let a = document.getElementById("openHrefID");
+				a.setAttribute('href', _openUrl);
+				a.click()
+			  }
+	}
+	function onComplete(obj){
+       console.log(obj.message);
+    }
+
+    function  onError(obj){
+      console.log(obj.message);
+	  var geolocationBD = new BMap.Geolocation();
+	   geolocationBD.enableSDKLocation();
+		geolocationBD.getCurrentPosition(function(r){
+			if(this.getStatus() == BMAP_STATUS_SUCCESS){
+				gotoDHFun({bd_lat: r.point.lat,bd_lng: r.point.lng})
+			}
+			else {
+				alert('获取定位失败请重试：'+this.getStatus());
+			}        
+		});
+    }       
+    
+</script>
+</html>
