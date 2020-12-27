@@ -39,10 +39,10 @@ tinymce.PluginManager.add('layout', function(editor, url) {
                  kl?kv=(parseInt(kl)+16)*2+'px':'';
              }
             if(act==''){
-                act = dom.getStyle(block,'text-indent')==(kv?kv:layout_val.indent2em) ? 'remove' : 'add';
+                act = dom.getStyle(block,'text-indent')==(layout_val.indent2em?layout_val.indent2em: kv?kv:'2em') ? 'remove' : 'add';
             }
             if( act=='add'){
-                dom.setStyle(block, 'text-indent',layout_val.indent2em?layout_val.indent2em: kv?kv:'');
+                dom.setStyle(block, 'text-indent',layout_val.indent2em?layout_val.indent2em: kv?kv:'2em');
                 dom.setStyle(block, 'text-align', layout_val.alignment);
             }else{
                 var style=dom.getAttrib(block,'style');

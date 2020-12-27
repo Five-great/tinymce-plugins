@@ -1,9 +1,20 @@
 # tinymce-plugins
 This is tinymce plugins
+
+## 前言
+因为项目需要用到富文本编辑器众多富文本编辑器中，选择了 Tinymce，根据项目需要对Tinymce 进行扩展和增强插件，记录一下，并同时分享给需要帮助的人。
+
+
+[tinymce 官方文档]( https://www.tiny.cloud/docs/)
+
+[tinymce 中文文档]( http://tinymce.ax-z.cn/)
+
+
+
 ## 简述
 This is tinymce plugins
 该项目主要为 tinymce 富文本编译器的扩展插件，或增强优化插件
-目前为止插件列表如下：
+目前整理完成插件列表如下：
 
  - [x]  imagetools [增强优化]： 图片编辑工具插件， 对图片进行处理。优化跨域，功能更丰富； 
  - [x]  table [增强优化]：表格插件，处理表格。 增强优化表格控制，增加表格转图片功能，便捷布局按钮；
@@ -16,7 +27,7 @@ This is tinymce plugins
   未使用过 tinymce ，可以查看莫若卿大佬的 [tinymce  中文文档 ](http://tinymce.ax-z.cn/)
    ####  imagetools 使用方法：
   增强效果：
-  ![在这里插入图片描述](https://img-blog.csdnimg.cn/20201227164654484.png)
+  ![在这里插入图片描述](./demo/img/20201227164654484.png)
 
   
  ```javascript
@@ -31,7 +42,7 @@ This is tinymce plugins
 
 ####  table 使用方法：
 增强效果：
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20201227164605165.png)
+![在这里插入图片描述](./demo/img/20201227164605165.png)
 
 ```javascript
 tinymce.init({
@@ -129,4 +140,5 @@ tinymce.init({
     }
 });
 ```
+#### 欢迎提出建议，动手点赞 ，或提pr
    
