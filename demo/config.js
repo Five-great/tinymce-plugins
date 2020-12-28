@@ -17,7 +17,7 @@ var xhrOnProgress = function (fun) {
                 tinyID: "mytextarea",//作用域ID
                 placeholder: '', //默认文字
                 infoHtml: $(this.tinyID).html(),//初始化内容
-                GbaseUrl: 'http://base.hope55.com',//全局baseUrl
+                GbaseUrl: '',//全局baseUrl
                 OMHtml: '<div style="height: 1500px;"><p><h2>操作手册：</h2></p></div><p>666</p>', //设置操作手册Html
                 CPHtml: '',
             }
@@ -180,54 +180,33 @@ var xhrOnProgress = function (fun) {
                   }
                   $.ajax({
                     type: "GET",
-                    url: "http://base.hope55.com/API/WebAPI/GetSinglePageInfoByCid?Cid=2869",
+                    url: "./api/setFChtml.json",
                     async: true,
                     dataType: "json",
                     success: function(data) {
-                      tinymceConfig.setFCHtml(JSON.parse(data).Info);//设置功能介绍
+                       
+                      tinymceConfig.setFCHtml(data.data);//设置功能介绍
                     },
                     error:function () {
                     }
                   })
                   $.ajax({
                     type: "GET",
-                    url: "http://base.hope55.com/API/WebAPI/GetNewsInfoByCid?PageIndex=1&Cid=2866&PageSize=600&descNum=10000",
+                    url: "./api/setList.json",
                     async: true,
                     dataType: "json",
                     success: function(data) {
-                     let  GetData = JSON.parse(data).row;
-                      let temHtml='<h1 class="fvTopTitle" >操作手册</h1><ul>';
-                      for(let kk in GetData){
-                        $.ajax({
-                          type: "GET",
-                          url: "http://base.hope55.com/API/WebAPI/GetNewsInfoByNid?Nid=" +GetData[kk].ID ,
-                          async: false,
-                          dataType: "json",
-                          success: function(resdata) {
-                          let infoHtml = JSON.parse(resdata);
-                          temHtml += '<li>'+
-                                        '<input type="checkbox" id="fvDetail'+GetData[kk].ID+'" />'+
-                                        '<div><label for="fvDetail'+GetData[kk].ID+'"> <span><svg t="1604562478528" class="icon" viewBox="0 0 1706 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="47577" width="12" height="12"><path fill-rule="evenodd" d="M114.347 231.083a60.416 60.416 0 0 1 0.682-88.406L222.55 41.984a67.243 67.243 0 0 1 92.16 1.365l546.134 534.187c25.6 24.576 65.877 23.893 90.794-2.048L1483.093 20.48a63.147 63.147 0 0 1 90.454-2.39l114.005 111.275a62.464 62.464 0 0 1 0 89.43L944.128 952.66a65.195 65.195 0 0 1-91.136 0.342l-738.645-721.92z" p-id="47578"></path></svg></span></label>'+
-                                            '<p class="fv_title">'+infoHtml.Title+'</p>'+
-                                            '<div class="fv_Details">'+infoHtml.Details+'</div>'+
-                                        '<div>'
-                                    '</li>'
-                          }
-                        })
-                       
-                      }
-                      tinymceConfig.setOMHtml(temHtml+'</ul>')
+                      let temHtml=data.data
+                      tinymceConfig.setOMHtml(temHtml)
                     }
                   })
                       $.ajax({
                         type: "GET",
-                        url: "http://base.hope55.com/API/WebAPI/GetSinglePageInfoByCid?Cid=2867",
+                        url: "./api/setCP.json",
                         async: true,
                         dataType: "json",
                         success: function(data) {
-                          // console.log(JSON.parse(data));
-                          
-                          tinymceConfig.setCPHtml(JSON.parse(data).Info);//设置疑难问答
+                          tinymceConfig.setCPHtml(data.data);//设置疑难问答
                           let _html = $("#"+tinymceConfig.tinyID).html();
                              if(_html.indexOf('<div id="fvContentID">')!=-1){
                                  _html = _html.match(/<div id="fvContentID">([\s\S]*)<\/div>/)[1];
@@ -241,11 +220,11 @@ var xhrOnProgress = function (fun) {
                 //公告栏
 		        $.ajax({
                     type: "GET",
-                    url: "http://base.hope55.com/API/WebAPI/GetSinglePageInfoByCid?Cid=2876",
+                    url: "./api/setGG.json",
                     async: true,
                     dataType: "json",
                     success: function(data) {
-                           $("#tinymce-app").prepend('<div><p style="margin: 5px;">【公告栏】</p>'+JSON.parse(data).Info+'</div>')
+                           $("#tinymce-app").prepend('<div><p style="margin: 5px;">【公告栏】</p>'+data.data+'</div>')
                     },
                     error:function () {
                     }
@@ -364,13 +343,19 @@ var xhrOnProgress = function (fun) {
                 },
                 init_instance_callback: function(editor){
                     var  html2 ='<p>This is tinymce plugins 该项目主要为 tinymce 富文本编译器的扩展插件，或增强优化插件 目前整理完成插件列表如下：</p>'+
-                                '<p style="text-indent: 2em;"><input id="" checked="checked" disabled="disabled" type="checkbox" />&nbsp;imagetools [增强优化]： 图片编辑工具插件， 对图片进行处理。优化跨域，功能更丰富；</p>'+
-                                '<p style="text-indent: 2em;"><input id="" checked="checked" disabled="disabled" type="checkbox" />&nbsp;table [增强优化]：表格插件，处理表格。 增强优化表格控制，增加表格转图片功能，便捷布局按钮；</p>'+
-                                '<p style="text-indent: 2em;"><input id="" checked="checked" disabled="disabled" type="checkbox" />&nbsp;indent2em[增强优化]：首行缩进插件。提供中文段落排版的首行缩进2个字符的功能。增强优化 加入字间距非默认情况，也能实现准确首行缩进2字符；</p>'+
-                                '<p style="text-indent: 2em;"><input id="" checked="checked" disabled="disabled" type="checkbox" />&nbsp;letterspacing：设置间距插件。可以设置文档中的文字间距；</p>'+
-                                '<p style="text-indent: 2em;"><input id="" checked="checked" disabled="disabled" type="checkbox" />&nbsp;layout： 一键布局插件。可以给文档段落进行一键快速排版布局；</p>'+
-                                '<p style="text-indent: 2em;"><input id="" checked="checked" disabled="disabled" type="checkbox" />&nbsp;importword： 导入word插件。可以直接导入word ,并且保证word中图片不会丢失，自动转为base64;</p>'
-                    tinyMCE.editors[tinymceConfig.tinyID+'2'].setContent(html2);                    
+                                '<p style="text-indent: 2em; text-align: justify; line-height: 1.5;"><input checked="checked" type="checkbox" />&nbsp;imagetools [增强优化]： 图片编辑工具插件， 对图片进行处理。优化跨域，功能更丰富；</p>'+
+                                '<p style="text-indent: 2em; text-align: justify; line-height: 1.5;"><input checked="checked" type="checkbox" />&nbsp;table [增强优化]：表格插件，处理表格。 增强优化表格控制，增加表格转图片功能，便捷布局按钮；</p>'+
+                                '<p style="text-indent: 2em; text-align: justify; line-height: 1.5;"><input checked="checked" type="checkbox" />&nbsp;indent2em[增强优化]：首行缩进插件。提供中文段落排版的首行缩进2个字符的功能。增强优化 加入字间距非默认情况，也能实现准确首行缩进2字符；</p>'+
+                                '<p style="text-indent: 2em; text-align: justify; line-height: 1.5;"><input checked="checked" type="checkbox" />&nbsp;letterspacing：设置间距插件。可以设置文档中的文字间距；</p>'+
+                                '<p style="text-indent: 2em; text-align: justify; line-height: 1.5;"><input checked="checked" type="checkbox" />&nbsp;layout： 一键布局插件。可以给文档段落进行一键快速排版布局；</p>'+
+                                '<p style="text-indent: 2em; text-align: justify; line-height: 1.5;"><input checked="checked" type="checkbox" />&nbsp;importword： 导入word插件。可以直接导入word ,并且保证word中图片不会丢失，自动转为base64;</p>'+
+                                '<p style="text-indent: 2em; text-align: justify; line-height: 1.5;"><input checked="checked" type="checkbox" />&nbsp;upfile： 文件上传。可以点击导入文件，可自定义编辑文件名;</p>'+
+                                '<p>表格样例</p>'+
+                                '<table style="border-collapse: collapse; width: 99.8937%;" border="1">'+
+                                '<tbody><tr><td style="width: 49.2138%; text-align: center;">&nbsp;表格可以转化为图片</td><td style="width: 49.267%; text-align: center;">表格可以转化为图片</td></tr><tr><td style="width: 49.2138%; text-align: center;">表格可以转化为图片</td><td style="width: 49.267%; text-align: center;">表格可以转化为图片</td></tr></tbody></table>'+
+                                '<p>图片样例</p>'+
+                                '<p><img style="display: block; margin-left: auto; margin-right: auto;"  src="https://s3.ax1x.com/2020/12/28/ro4Lng.png" alt="20201227164654484" /></p>'
+                                tinyMCE.editors[tinymceConfig.tinyID+'2'].setContent(html2);                    
                     $('#tinymce-app2').fadeIn(1000);
                  //    editor.execCommand('selectAll');
                  //    editor.selection.getRng().collapse(false);

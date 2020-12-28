@@ -9,7 +9,7 @@ This is tinymce plugins
 
 [tinymce 中文文档]( http://tinymce.ax-z.cn/)
 
-[项目demo地址](https://five-great.github.io/tinymce-plugins/demo/)
+[项目demo地址](http://tinymce.fivecc.cn/demo/)
 
 ## 简述
 This is tinymce plugins
