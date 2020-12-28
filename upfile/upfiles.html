@@ -331,6 +331,7 @@ element.style {
       upload_handler(upfileData,function(url,_obj){
         inputUrl.value = url;
         inputText.value ?'': inputText.value = url;
+        _obj&&_obj.text?inputText.value=_obj.text:'';
         upfile.res.url = upfileUrl = url;
         upfile.res.text = inputText.value;
 
@@ -356,32 +357,12 @@ element.style {
     
     var global$1 = upfile.tinymce.util.Tools.resolve('tinymce.util.Promise');var global$2 = upfile.tinymce.util.Tools.resolve('tinymce.Env');var global$3 = upfile.tinymce.util.Tools.resolve('tinymce.util.Delay');
     var pickFile=function(a){return new global$1(function(e){var c=document.createElement("input");c.type="file";c.style.position="fixed";c.style.left="0";c.style.top="0";c.style.opacity="0.001";document.body.appendChild(c);var b=function(f){e(Array.prototype.slice.call(f.target.files))};c.addEventListener("change",b);var d=function(g){var f=function(){e([]);c.parentNode.removeChild(c)};if(global$2.os.isAndroid()&&g.type!=="remove"){global$3.setEditorTimeout(a,f,0)}else{f()}a.off("focusin remove",d)};a.on("focusin remove",d);c.click()})};
-    
-    // //添加文件
   function getFile(){
-    // console.log("1212")
+   
     pickFile(editor).then(function (files){
-      // addFile(files);
-    })
-        // var input = document.createElement('input');
-        // input.setAttribute('type', 'file');
-        // input.setAttribute('multiple', 'multiple');
-        // input.setAttribute('accept', '.pdf, .txt, .zip, .rar, .7z, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .mp3, .mp4');
-        // input.onchange = function() {
-        //   // console.log("1212")
-        //     var files = this.files;
-        //     addFile(files);
-        // }
-        // input.click();
-        
-    }
-
-
- 
-
-
-
-
+      addFile(files);
+    })    
+}
 </script>
 </body>
 </html>

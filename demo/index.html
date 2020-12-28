@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="//cdn.staticfile.org/jquery/2.2.4/jquery.min.js"></script>
+  <!-- <script src='./api/api.js'></script> -->
+  
+  <script src='tinymce.js'></script><!-- 必要 -->
+
+  <style>
+    body{max-width: 1920px; min-width: 900px;width: 100%; margin: 0 auto;}
+   .demo,#showID{ margin-top:50px; border: 2px solid #dedede ;}
+   #showID{ padding: 20px;}
+   #tinymce-app .tinymce-box {padding-bottom: 0px!important;}
+   .text-center{ text-align: center;}
+   .btn{ border-radius: 20px; outline: none; width: 300px;height: 60px; margin: 20px auto; display: block; background: #1488F5; text-align: center;line-height: 60px; font-size: 28px;letter-spacing: 2px; color: #dedede;}
+  </style>
+</head>
+
+<body>
+      <h1 class="text-center" >tinymce-plugins  demo</h1>
+      <div class="demo">
+        <div id="tinymce-app">
+            <div class="tinymce-box" style="color: #000;">
+                <div class="tinymce-cnt" id="mytextarea"></div>
+            </div>
+        </div>
+      </div>
+      <a class="btn" onclick="savefun()" >点击保存显示</a>
+      <div>
+         <h1>展示区域</h1>
+         <div id="showID">
+             <h2 class="text-center" >点击保存后富文本框中内容将在此处显示</h2>
+         </div>
+     </div>
+     <h1>插件demo展示区域</h1>
+     <div class="demo2">
+        <div id="tinymce-app2">
+            <div class="tinymce-box" style="color: #000;">
+                <div class="tinymce-cnt" id="mytextarea2"></div>
+            </div>
+        </div>
+      </div>
+  <script>
+    function savefun(){
+      $("#showID").html(tinymceConfig.getHtml())
+    }
+  </script>
+  <script src="./config.js"></script>
+</body>
+</html>
