@@ -278,7 +278,7 @@ var xhrOnProgress = function (fun) {
                   var reader = new FileReader();
                    reader.onload = function(e){
                     // target.result 该属性表示目标对象的DataURL
-                    console.log(e.target.result);
+                    // console.log(e.target.result);
                     succFun(e.target.result)
                   }
                   reader.readAsDataURL(file)
@@ -354,7 +354,11 @@ var xhrOnProgress = function (fun) {
                                 '<table style="border-collapse: collapse; width: 99.8937%;" border="1">'+
                                 '<tbody><tr><td style="width: 49.2138%; text-align: center;">&nbsp;表格可以转化为图片</td><td style="width: 49.267%; text-align: center;">表格可以转化为图片</td></tr><tr><td style="width: 49.2138%; text-align: center;">表格可以转化为图片</td><td style="width: 49.267%; text-align: center;">表格可以转化为图片</td></tr></tbody></table>'+
                                 '<p>图片样例</p>'+
-                                '<p><img style="display: block; margin-left: auto; margin-right: auto;"  src="https://s3.ax1x.com/2020/12/28/ro4Lng.png" alt="20201227164654484" /></p>'
+                                '<p><img style="display: block; margin-left: auto; margin-right: auto;"  src="https://s3.ax1x.com/2020/12/28/ro4Lng.png" alt="20201227164654484" /></p>'+
+                                '<a href="https://github.com/Five-great/tinymce-plugins" target="_bank">github项目地址</a>&nbsp;&nbsp;&nbsp;'+
+                                '<a href="https://blog.csdn.net/qq_41923622/article/details/111810804" target="_bank">CSDN博客</a>&nbsp;&nbsp;'+
+                                '<a href="https://blog.fivecc.cn" target="_bank">个人博客</a>'+
+                                '<p>联系邮箱：fivecc@qq.com</p>'
                                 tinyMCE.editors[tinymceConfig.tinyID+'2'].setContent(html2);                    
                     $('#tinymce-app2').fadeIn(1000);
                  //    editor.execCommand('selectAll');

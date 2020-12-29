@@ -126,17 +126,27 @@ tinymce.init({
 ```
    更多配置(选配) :
          
-   提供 导入word 插件  过滤函数 importword_filter  配置参数【Function类型】传入2个参数
+   提供 导入word 插件 
+   预处理函数 importword_handler 配置参数【Function类型】传入2个参数  
+   1. files : 导入的文件 【object】
+   2. next : 下一步骤回调函数 传入files标签字符串【Function】
+   
+   过滤函数 importword_filter  配置参数【Function类型】传入3个参数
    
    1. result : 导入word 生成的 html标签字符串【String】
    2. insert : 插入回调函数 传入 html标签字符串【String】
+   3. message: 转换过程中产生的错误信息集【Array】
      
 ```javascript
 tinymce.init({
     selector: '#tinydemo',
     plugins: "importword",
     toolbar: "importword",
-    importword_filter: function(result,insert){ 
+    importword_handler: function(files,next){
+           //自定义预处理
+         next(files);
+    },
+    importword_filter: function(result,insert,message){ 
        // 自定义操作部分
       insert(result) //回插函数
     }
@@ -154,7 +164,7 @@ tinymce.init({
 ```
    更多配置(选配) :
          
-   提供 导入word 插件  过滤函数 file_callback 配置参数【Function类型】传入2个参数
+   提供 upfile 插件  过滤函数 file_callback 配置参数【Function类型】传入2个参数
    
    1. file : 文件对象【file】
    2. succFun : 成功回调函数 传入 html标签字符串【Function类型】(url|string,obj)
