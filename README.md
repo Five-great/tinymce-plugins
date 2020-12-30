@@ -9,7 +9,13 @@ This is tinymce plugins
 
 [tinymce 中文文档]( http://tinymce.ax-z.cn/)
 
-[项目demo地址](http://tinymce.fivecc.cn/demo/)
+[项目demo地址](http://fivecc.gitee.io/tinymce-plugins/demo/)
+
+[CSDN 博客](https://blog.csdn.net/qq_41923622/article/details/111810804)
+
+[个人博客](https://blog.fivecc.cn)
+
+QQ邮箱: fivecc@qq.com
 
 ## 简述
 This is tinymce plugins
@@ -23,6 +29,7 @@ This is tinymce plugins
  - [x]  layout： 一键布局插件。可以给文档段落进行一键快速排版布局；
  - [x]  importword： 导入word插件。可以直接导入word ,并且保证word中图片不会丢失，自动转为base64;
  - [x]  upfile： 文件上传。可以点击导入文件，可自定义编辑文件名;
+ - []  bdmap： 百度地图： 支持更改尺寸，自定义标签，开启导航功能（后续抽取整理）;
  
  
 ## 使用说明
@@ -56,6 +63,8 @@ tinymce.init({
    更多配置 见 [插件 / table](http://tinymce.ax-z.cn/plugins/table.php)
    
 ####  indent2em 使用方法：
+
+ 当使用 本项目 letterspacing 插件，如需使用首行缩进 请替换原有indent2em，使用该项目indent2em插件。
 
 ```javascript
 tinymce.init({

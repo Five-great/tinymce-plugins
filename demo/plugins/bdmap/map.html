@@ -206,7 +206,7 @@
 	.showBox[name="show"]{ pointer-events: all; opacity:1;}
 	.infoBox>img{display: none!important;}
 </style>
-<script charset="utf-8" src="http://api.map.baidu.com/api?v=3.0&ak=ONwdanPtvCDLHBSm184T2ynP"></script>
+<script charset="utf-8" src="//api.map.baidu.com/api?v=3.0&ak=ONwdanPtvCDLHBSm184T2ynP"></script>
 <script src="//api.map.baidu.com/library/InfoBox/1.2/src/InfoBox_min.js"></script>
 
 </head>
@@ -430,7 +430,7 @@
 			var keyword = document.getElementById("kw").value;
 			localSearch.setSearchCompleteCallback(function (searchResult) {
 				// console.log(searchResult);
-				if(searchResult.$q.length==0){
+				if(searchResult.Ar.length==0){
 					alert('搜索不到该地区');
 					return false;
 				}
