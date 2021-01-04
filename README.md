@@ -29,7 +29,7 @@ This is tinymce plugins
  - [x]  layout： 一键布局插件。可以给文档段落进行一键快速排版布局；
  - [x]  importword： 导入word插件。可以直接导入word ,并且保证word中图片不会丢失，自动转为base64;
  - [x]  upfile： 文件上传。可以点击导入文件，可自定义编辑文件名;
- - []  bdmap： 百度地图： 支持更改尺寸，自定义标签，开启导航功能（后续抽取整理）;
+ - [ ]  bdmap： 百度地图： 支持更改尺寸，自定义标签，开启导航功能（后续抽取整理）;
  
  
 ## 使用说明
@@ -46,7 +46,7 @@ This is tinymce plugins
      toolbar: "image",
     });
    ```
-   
+   [点击下载](https://github.com/Five-great/tinymce-plugins/releases/download/0.0.2/imagetools.rar) [更多下载](https://github.com/Five-great/tinymce-plugins/releases/tag/0.0.2)
    更多配置 见 [插件 / imagetools](http://tinymce.ax-z.cn/plugins/imagetools.php)
 
 ####  table 使用方法：
@@ -60,6 +60,7 @@ tinymce.init({
     toolbar: "table"
 });
 ```
+ [点击下载](https://github.com/Five-great/tinymce-plugins/releases/download/0.0.2/table.rar) [更多下载](https://github.com/Five-great/tinymce-plugins/releases/tag/0.0.2)
    更多配置 见 [插件 / table](http://tinymce.ax-z.cn/plugins/table.php)
    
 ####  indent2em 使用方法：
@@ -73,6 +74,7 @@ tinymce.init({
     toolbar: "indent2em"
 });
 ```
+ [点击下载](https://github.com/Five-great/tinymce-plugins/releases/download/0.0.2/indent2em.rar) [更多下载](https://github.com/Five-great/tinymce-plugins/releases/tag/0.0.2)
    更多配置 见 [插件 / indent2em](http://tinymce.ax-z.cn/plugins/indent2em.php)
 
 
@@ -85,6 +87,8 @@ tinymce.init({
     toolbar: "letterspacing"
 });
 ```
+[点击下载](https://github.com/Five-great/tinymce-plugins/releases/download/0.0.2/letterspacing.rar) [更多下载](https://github.com/Five-great/tinymce-plugins/releases/tag/0.0.2)
+   
    更多配置(选配) :
  
  提供字段 letterspacing 配置参数【String类型】，空格隔开；
@@ -108,6 +112,8 @@ tinymce.init({
     toolbar: "layout"
 });
 ```
+[点击下载](https://github.com/Five-great/tinymce-plugins/releases/download/0.0.2/layout.rar) [更多下载](https://github.com/Five-great/tinymce-plugins/releases/tag/0.0.2)
+
    更多配置 (选配):
          
    提供 一键布局 默认参数字段  layout_options  配置参数【Object类型】目前一共3个属性：
@@ -133,12 +139,15 @@ tinymce.init({
     toolbar: "importword"
 });
 ```
+[点击下载](https://github.com/Five-great/tinymce-plugins/releases/download/0.0.2/importword.rar) [更多下载](https://github.com/Five-great/tinymce-plugins/releases/tag/0.0.2)
+
    更多配置(选配) :
          
    提供 导入word 插件 
-   预处理函数 importword_handler 配置参数【Function类型】传入2个参数  
-   1. files : 导入的文件 【object】
-   2. next : 下一步骤回调函数 传入files标签字符串【Function】
+   预处理函数 importword_handler 配置参数【Function类型】传入3个参数  
+   1. editor : editor 编辑器实列【object】
+   2. files : 导入的文件 【object】
+   3. next : 下一步骤回调函数 传入files标签字符串【Function】
    
    过滤函数 importword_filter  配置参数【Function类型】传入3个参数
    
@@ -151,10 +160,23 @@ tinymce.init({
     selector: '#tinydemo',
     plugins: "importword",
     toolbar: "importword",
-    importword_handler: function(files,next){
-           //自定义预处理
-         next(files);
-    },
+    importword_handler: function(editor,files,next){
+                var file_name = files[0].name
+                if(file_name.substr(file_name.lastIndexOf(".")+1)=='docx'){
+                    notificationID = editor.notificationManager.open({
+                        text: '正在转换中...',
+                        type: 'info',
+                        closeButton: false,
+                    });
+                     next(files);
+                }else{
+                    editor.notificationManager.open({
+                        text: '目前仅支持docx文件格式，若为doc111，请将扩展名改为docx',
+                        type: 'warning',
+                    });
+                }
+                // next(files);
+    }
     importword_filter: function(result,insert,message){ 
        // 自定义操作部分
       insert(result) //回插函数
@@ -171,6 +193,9 @@ tinymce.init({
     toolbar: "upfile"
 });
 ```
+
+[点击下载](https://github.com/Five-great/tinymce-plugins/releases/download/0.0.2/upfile.rar) [更多下载](https://github.com/Five-great/tinymce-plugins/releases/tag/0.0.2)
+
    更多配置(选配) :
          
    提供 upfile 插件  过滤函数 file_callback 配置参数【Function类型】传入2个参数
