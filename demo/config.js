@@ -240,7 +240,7 @@ var xhrOnProgress = function (fun) {
                 branding: false,
                 min_height:400,
                 max_height: 700,
-                plugins: ' print preview clearhtml searchreplace autolink layout fullscreen image upfile link media code codesample table charmap hr pagebreak nonbreaking anchor advlist lists textpattern help emoticons autosave bdmap indent2em lineheight formatpainter axupimgs powerpaste letterspacing imagetools quickbars attachment wordcount autoresize importword',
+                plugins: ' print preview clearhtml searchreplace insertdatetime autolink layout fullscreen image upfile link media code codesample table charmap hr pagebreak nonbreaking anchor advlist lists textpattern help emoticons autosave bdmap indent2em lineheight formatpainter axupimgs powerpaste letterspacing imagetools quickbars attachment wordcount autoresize importword',
                 toolbar_groups: {
                         formatting: {
                             text: '文字格式',
@@ -253,7 +253,7 @@ var xhrOnProgress = function (fun) {
                             items: 'alignleft aligncenter alignright alignjustify',
                         }
                  },
-                toolbar: ['|code formatselect fontselect fontsizeselect  forecolor backcolor bold italic underline strikethrough link alignment | ','layout upfile importword letterspacing indent2em table image imagetools '],
+                toolbar: ['|code formatselect fontselect fontsizeselect  forecolor backcolor bold italic underline strikethrough link alignment | ','layout upfile importword letterspacing indent2em table image imagetools insertdatetime'],
                 table_style_by_css: true,
                 OperationManualHtml: '',
                 CommonProblemHtml: '',
@@ -271,7 +271,13 @@ var xhrOnProgress = function (fun) {
                 fontsize_formats: '12px 14px 16px 18px 24px 36px 48px 56px 72px',
                 font_formats: '微软雅黑=Microsoft YaHei,Helvetica Neue,PingFang SC,sans-serif;苹果苹方=PingFang SC,Microsoft YaHei,sans-serif;宋体=simsun,serif;仿宋体=FangSong,serif;黑体=SimHei,sans-serif;Arial=arial,helvetica,sans-serif;Symbol=symbol;Tahoma=tahoma,arial,helvetica,sans-serif;Terminal=terminal,monaco;Times New Roman=times new roman,times;Verdana=verdana,geneva;Webdings=webdings;Wingdings=wingdings,zapf dingbats;',
                 images_upload_base_path: '',
-                images_upload_handler: function (blobInfo, succFun, failFun) {//自定义插入图片函数  blobInfo: 本地图片blob对象, succFun(url|string)： 成功回调（插入图片链接到文本中）, failFun(string)：失败回调
+                table_icons:{
+                    // 'align-right-table': '<svg width="24" height="24"><path d="M5 5h14c.6 0 1 .4 1 1s-.4 1-1 1H5a1 1 0 1 1 0-2zm6 4h8c.6 0 1 .4 1 1s-.4 1-1 1h-8a1 1 0 0 1 0-2zm0 8h8c.6 0 1 .4 1 1s-.4 1-1 1h-8a1 1 0 0 1 0-2zm-6-4h14c.6 0 1 .4 1 1s-.4 1-1 1H5a1 1 0 0 1 0-2z" fill-rule="evenodd"></path></svg>',
+                    // 'align-left-table': '<svg width="24" height="24"><path d="M5 5h14c.6 0 1 .4 1 1s-.4 1-1 1H5a1 1 0 1 1 0-2zm0 4h8c.6 0 1 .4 1 1s-.4 1-1 1H5a1 1 0 1 1 0-2zm0 8h8c.6 0 1 .4 1 1s-.4 1-1 1H5a1 1 0 0 1 0-2zm0-4h14c.6 0 1 .4 1 1s-.4 1-1 1H5a1 1 0 0 1 0-2z" fill-rule="evenodd"></path></svg>',
+                    'align-center-table': '<svg width="24" height="24"><path d="M5 5h14c.6 0 1 .4 1 1s-.4 1-1 1H5a1 1 0 1 1 0-2zm3 4h8c.6 0 1 .4 1 1s-.4 1-1 1H8a1 1 0 1 1 0-2zm0 8h8c.6 0 1 .4 1 1s-.4 1-1 1H8a1 1 0 0 1 0-2zm-3-4h14c.6 0 1 .4 1 1s-.4 1-1 1H5a1 1 0 0 1 0-2z" fill-rule="evenodd"></path></svg>',
+                    'table-to-img':'<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path fill-rule="evenodd" d="M794.4448 85.41696a20.79232 20.79232 0 0 0-29.35296-1.84832l-81.96608 72.50432-0.12288 0.14848c-1.44384 1.31584-2.70848 2.816-3.75808 4.46976-0.46592 0.7424-0.64 1.62816-0.98816 2.39104a20.93568 20.93568 0 0 0-2.06336 10.26048v0.04096c0.19968 2.40128 0.92672 4.77184 1.95072 6.9632 0.08192 0.1536 0.08192 0.42496 0.16384 0.60416l43.86304 87.68512a20.81792 20.81792 0 0 0 37.20192-18.60608l-28.00128-55.96672c54.85056 5.22752 96.62976 22.41536 124.53376 51.44064 38.272 39.7568 37.05344 89.59488 37.08928 90.00448-0.48128 11.20256 8.51456 21.09952 19.968 21.53984a20.7616 20.7616 0 0 0 21.55008-19.83488c0.07168-2.70848 2.26816-67.02592-48.05632-119.85408-32.70656-34.31424-79.31904-55.29088-138.624-63.02208l44.78464-39.6288 0.06656-0.0512a20.72576 20.72576 0 0 0 1.76128-29.24032zM497.59744 334.39232c31.54432-0.0256 57.1136-25.59488 57.1392-57.1392-0.0256-31.54944-25.59488-57.1136-57.1392-57.1392-31.54432 0.0256-57.1136 25.59488-57.1392 57.1392 0.0256 31.54944 25.58976 57.1136 57.1392 57.1392z m0-83.1232a25.984 25.984 0 1 1 0 51.92704 25.97888 25.97888 0 0 1-24.87296-27.04896 25.97376 25.97376 0 0 1 24.87296-24.87808z" p-id="34952" fill="#2c2c2c"></path><path d="M946.33472 519.02976c-8.44288-37.59104-44.98432-65.9456-88.6528-65.9456h-207.95904l-0.4608-231.49056c0-45.55264-40.62208-82.60096-90.54208-82.60096h-393.4208c-49.92512 0-90.5472 37.04832-90.5472 82.60096v307.8144c0 45.55264 40.61696 82.58048 90.5472 82.58048h208.39424v231.56224c0 5.64224 0.66048 11.2384 1.8432 16.5888 8.46336 37.63712 45.00992 65.99168 88.6784 65.99168h393.4464c49.92 0 90.5216-37.0688 90.5216-82.58048v-307.8144a73.64608 73.64608 0 0 0-1.84832-16.70656zM116.3264 221.568c0-22.61504 21.95968-41.05216 48.96768-41.05216h393.44128c27.008 0 48.96768 18.432 48.96768 41.05216v231.49056h-101.7856c-11.60704-20.22912-14.1568-24.23296-19.29728-31.9488-0.72704-1.18272-1.52576-2.98496-2.50368-5.05344-6.64576-13.952-19.0464-39.86944-45.37344-44.32896-18.0224-3.02592-36.75136 5.21216-55.79776 24.50944-28.98944 29.37856-35.04128 23.39328-41.3696 17.13664a42.46528 42.46528 0 0 0-3.13856-2.93376c-2.02752-2.43712-7.5776-12.53888-12.0576-20.66432-20.95616-38.13888-49.69984-90.3424-87.08608-91.49952l-0.77312-0.02048c-30.40256 0-78.30016 57.82016-122.19904 122.10688V221.568z m790.30272 412.47232v209.4592c0 22.5792-21.98528 41.03168-48.93184 41.03168H464.23552c-27.008 0-48.96768-18.45248-48.96768-41.03168v-307.80928c0-22.64064 21.9392-41.05216 48.96768-41.05216h393.4464c27.008 0 48.96768 18.41152 48.96768 41.05216v98.35008h-0.02048z" p-id="34953" fill="#2c2c2c"></path><path d="M658.64192 591.19104a20.78208 20.78208 0 0 1-20.80256 20.75136H471.60832a20.79232 20.79232 0 0 1 0-41.5488h166.23104a20.81792 20.81792 0 0 1 20.80256 20.79744z m-41.53344 173.11744a20.80256 20.80256 0 0 1-20.80256 20.80256h-124.672a20.77696 20.77696 0 0 1 0-41.55392h124.67712c11.4432 0.00512 20.79744 9.33376 20.79744 20.75136z m145.4336-86.53312a20.74112 20.74112 0 0 1-20.78208 20.70528H471.63392a20.70528 20.70528 0 0 1-20.77696-20.63872v-0.06656a20.7872 20.7872 0 0 1 20.77696-20.80256h270.12608a20.82304 20.82304 0 0 1 20.78208 20.80256z"></path></svg>'
+                 }
+                ,images_upload_handler: function (blobInfo, succFun, failFun) {//自定义插入图片函数  blobInfo: 本地图片blob对象, succFun(url|string)： 成功回调（插入图片链接到文本中）, failFun(string)：失败回调
                    var file = blobInfo.blob();
 
                    
@@ -342,6 +348,8 @@ var xhrOnProgress = function (fun) {
                     });
                 },
                 init_instance_callback: function(editor){
+
+                    
                     var  html2 ='<p>This is tinymce plugins 该项目主要为 tinymce 富文本编译器的扩展插件，或增强优化插件 目前整理完成插件列表如下：</p>'+
                                 '<p style="text-indent: 2em; text-align: justify; line-height: 1.5;"><input checked="checked" type="checkbox" />&nbsp;imagetools [增强优化]： 图片编辑工具插件， 对图片进行处理。优化跨域，功能更丰富；</p>'+
                                 '<p style="text-indent: 2em; text-align: justify; line-height: 1.5;"><input checked="checked" type="checkbox" />&nbsp;table [增强优化]：表格插件，处理表格。 增强优化表格控制，增加表格转图片功能，便捷布局按钮；</p>'+

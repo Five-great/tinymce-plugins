@@ -13,7 +13,7 @@ This is tinymce plugins
 
 [CSDN 博客](https://blog.csdn.net/qq_41923622/article/details/111810804)
 
-[个人博客](https://blog.fivecc.cn)
+[个人博客](https://fivecc.cn)
 
 QQ邮箱: fivecc@qq.com
 
@@ -46,21 +46,33 @@ This is tinymce plugins
      toolbar: "image",
     });
    ```
-   [点击下载](https://github.com/Five-great/tinymce-plugins/releases/download/0.0.2/imagetools.rar) [更多下载](https://github.com/Five-great/tinymce-plugins/releases/tag/0.0.2)
+   [点击下载](https://github.com/Five-great/tinymce-plugins/releases/download/0.0.3/imagetools.rar) [更多下载](https://github.com/Five-great/tinymce-plugins/releases/tag/0.0.3)
    更多配置 见 [插件 / imagetools](http://tinymce.ax-z.cn/plugins/imagetools.php)
 
 ####  table 使用方法：
 增强效果：
 ![在这里插入图片描述](https://s3.ax1x.com/2020/12/28/ro4Rne.png)
 
+ 提供一个配置项目 table_icons 自定义图标配置【Object】可配置icon 对象为
+ 
+ 1. align-left-table： 表格居左
+ 2. align-center-table： 表格居中
+ 3. align-right-table： 表格居右
+ 4. table-to-img： 表格转图片
+
 ```javascript
 tinymce.init({
     selector: '#tinydemo',
     plugins: "table",
     toolbar: "table"
+    table_icons: {// 以下下为默认配置
+                    'align-right-table': '<svg width="24" height="24"><path d="M5 5h14c.6 0 1 .4 1 1s-.4 1-1 1H5a1 1 0 1 1 0-2zm6 4h8c.6 0 1 .4 1 1s-.4 1-1 1h-8a1 1 0 0 1 0-2zm0 8h8c.6 0 1 .4 1 1s-.4 1-1 1h-8a1 1 0 0 1 0-2zm-6-4h14c.6 0 1 .4 1 1s-.4 1-1 1H5a1 1 0 0 1 0-2z" fill-rule="evenodd"></path></svg>',
+                    'align-left-table': '<svg width="24" height="24"><path d="M5 5h14c.6 0 1 .4 1 1s-.4 1-1 1H5a1 1 0 1 1 0-2zm0 4h8c.6 0 1 .4 1 1s-.4 1-1 1H5a1 1 0 1 1 0-2zm0 8h8c.6 0 1 .4 1 1s-.4 1-1 1H5a1 1 0 0 1 0-2zm0-4h14c.6 0 1 .4 1 1s-.4 1-1 1H5a1 1 0 0 1 0-2z" fill-rule="evenodd"></path></svg>',
+                    'align-center-table': '<svg width="24" height="24"><path d="M5 5h14c.6 0 1 .4 1 1s-.4 1-1 1H5a1 1 0 1 1 0-2zm3 4h8c.6 0 1 .4 1 1s-.4 1-1 1H8a1 1 0 1 1 0-2zm0 8h8c.6 0 1 .4 1 1s-.4 1-1 1H8a1 1 0 0 1 0-2zm-3-4h14c.6 0 1 .4 1 1s-.4 1-1 1H5a1 1 0 0 1 0-2z" fill-rule="evenodd"></path></svg>'
+    }
 });
 ```
- [点击下载](https://github.com/Five-great/tinymce-plugins/releases/download/0.0.2/table.rar) [更多下载](https://github.com/Five-great/tinymce-plugins/releases/tag/0.0.2)
+ [点击下载](https://github.com/Five-great/tinymce-plugins/releases/download/0.0.3/table.rar) [更多下载](https://github.com/Five-great/tinymce-plugins/releases/tag/0.0.3)
    更多配置 见 [插件 / table](http://tinymce.ax-z.cn/plugins/table.php)
    
 ####  indent2em 使用方法：
@@ -74,8 +86,8 @@ tinymce.init({
     toolbar: "indent2em"
 });
 ```
- [点击下载](https://github.com/Five-great/tinymce-plugins/releases/download/0.0.2/indent2em.rar) [更多下载](https://github.com/Five-great/tinymce-plugins/releases/tag/0.0.2)
-   更多配置 见 [插件 / indent2em](http://tinymce.ax-z.cn/plugins/indent2em.php)
+ [点击下载](https://github.com/Five-great/tinymce-plugins/releases/download/0.0.3/indent2em.rar) [更多下载](https://github.com/Five-great/tinymce-plugins/releases/tag/0.0.3)
+   更多配置 见 [插件 / indent2em](http://tinymce.ax-z.cn/more-plugins/indent2em.php)
 
 
 ####  letterspacing 使用方法：
@@ -87,7 +99,7 @@ tinymce.init({
     toolbar: "letterspacing"
 });
 ```
-[点击下载](https://github.com/Five-great/tinymce-plugins/releases/download/0.0.2/letterspacing.rar) [更多下载](https://github.com/Five-great/tinymce-plugins/releases/tag/0.0.2)
+[点击下载](https://github.com/Five-great/tinymce-plugins/releases/download/0.0.3/letterspacing.rar) [更多下载](https://github.com/Five-great/tinymce-plugins/releases/tag/0.0.3)
    
    更多配置(选配) :
  
@@ -112,21 +124,40 @@ tinymce.init({
     toolbar: "layout"
 });
 ```
-[点击下载](https://github.com/Five-great/tinymce-plugins/releases/download/0.0.2/layout.rar) [更多下载](https://github.com/Five-great/tinymce-plugins/releases/tag/0.0.2)
+[点击下载](https://github.com/Five-great/tinymce-plugins/releases/download/0.0.3/layout.rar) [更多下载](https://github.com/Five-great/tinymce-plugins/releases/tag/0.0.3)
 
    更多配置 (选配):
          
-   提供 一键布局 默认参数字段  layout_options  配置参数【Object类型】目前一共3个属性：
-   1. alignment 【对齐方式：justify（默认） , left , right , center 等】；
-   2.  lineheight 【设置行高】默认1.5
-   3.  indent2em 【设置首行缩进】 默认 首行缩进 2字段 
-
+   提供 一键布局 默认参数字段  layout_options  配置参数【Object类型】目前一共4个属性：
+   1. style : 一键布局默认样式参数【Object】
+   2. filterTags： 【Array】过滤标签，该数组中的标签，一键布局中将会被忽略（默认忽略 'table','tbody','td','tr'）
+   3. clearStyle: 【Array】清除样式 ，一键布局后 ，数组中的样式将会清除掉。
+   4. tagsStyle： 单独标签样式处理【Object】
+   配置优先级从低到高： style < filterTags < clearStyle < tagsStyle
 ```javascript
 tinymce.init({
     selector: '#tinydemo',
     plugins: "layout",
     toolbar: "layout",
-    layout_options: {alignment:'left',lineheight: 1.5,indent2em: '2em'}
+    layout_options: {
+                style: {
+                   'text-align':'justify',
+                   'text-indent':'2em',
+                   'line-height': 1.5
+                },
+                filterTags：['table','tbody','td','tr'], //'table','tbody','td','tr' 将会被清除掉
+                clearStyle: ['text-indent'],//text-indent 将会被清除掉
+                tagsStyle: {
+                   'table': {
+                       'line-height': 3,
+                       'text-align': 'center'
+                   },
+                  'table,tbody,tr,td': { //支持并集选择
+                    'line-height': 2,
+                    'text-align': 'center'
+                   }
+               }
+    }
 });
 ```
 
@@ -139,7 +170,7 @@ tinymce.init({
     toolbar: "importword"
 });
 ```
-[点击下载](https://github.com/Five-great/tinymce-plugins/releases/download/0.0.2/importword.rar) [更多下载](https://github.com/Five-great/tinymce-plugins/releases/tag/0.0.2)
+[点击下载](https://github.com/Five-great/tinymce-plugins/releases/download/0.0.3/importword.rar) [更多下载](https://github.com/Five-great/tinymce-plugins/releases/tag/0.0.3)
 
    更多配置(选配) :
          
@@ -194,7 +225,7 @@ tinymce.init({
 });
 ```
 
-[点击下载](https://github.com/Five-great/tinymce-plugins/releases/download/0.0.2/upfile.rar) [更多下载](https://github.com/Five-great/tinymce-plugins/releases/tag/0.0.2)
+[点击下载](https://github.com/Five-great/tinymce-plugins/releases/download/0.0.3/upfile.rar) [更多下载](https://github.com/Five-great/tinymce-plugins/releases/tag/0.0.3)
 
    更多配置(选配) :
          
