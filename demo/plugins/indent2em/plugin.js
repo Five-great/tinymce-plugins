@@ -1,5 +1,5 @@
 /**
- * indent2em (Enhancement 1.1v)
+ * indent2em (Enhancement 1.2v) 2021-01-12
  * The tinymce-plugins is used to set the first line indent (Enhancement)
  * 
  * https://github.com/Five-great/tinymce-plugins
@@ -26,16 +26,14 @@ tinymce.PluginManager.add('indent2em', function(editor, url) {
              block.attributes.style? kl = _indent2$getValue('letter-spacing',block.attributes.style.textContent):''
              if(block&&block.children['0']&&block.children['0'].attributes&&block.children['0'].attributes.style){
               kv=_indent2$getValue('font-size',block.children['0'].attributes.style.textContent);
-             if(kv&&kl) kv=(parseInt(kv)+(kl?parseInt(kl):''))*2+'px';
-             else if(kl) kv=(parseInt(kl)+16)*2+'px';
-             }else{
-                 kl?kv=(parseInt(kl)+16)*2+'px':'';
-             }
+              if(kv) {kv=(parseInt(kv)+parseInt((kl?kl:0)))*2+'px';}
+              else kv=(parseInt((kl?kl:0))+16)*2+'px';
+            }else kl?kv=(parseInt((kl?kl:0))+16)*2+'px':'';
             if(act==''){
-                act = dom.getStyle(block,'text-indent')==(kv?kv:indent2em_val) ? 'remove' : 'add';
+                act = dom.getStyle(block,'text-indent') == (indent2em_val!='2em'?indent2em_val:kv?kv:'2em') ? 'remove' : 'add';
             }
             if( act=='add'){
-                dom.setStyle(block, 'text-indent', kv?kv:indent2em_val);
+                dom.setStyle(block, 'text-indent', indent2em_val!='2em'?indent2em_val:kv?kv:'2em');
             }else{
                 var style=dom.getAttrib(block,'style');
                 var reg = new RegExp('text-indent?(.+?)"?[;}]', 'ig');

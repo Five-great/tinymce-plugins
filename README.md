@@ -46,7 +46,7 @@ This is tinymce plugins
      toolbar: "image",
     });
    ```
-   [点击下载](https://github.com/Five-great/tinymce-plugins/releases/download/0.0.3/imagetools.rar) [更多下载](https://github.com/Five-great/tinymce-plugins/releases/tag/0.0.3)
+   [点击下载](https://github.com/Five-great/tinymce-plugins/releases/download/0.0.4/imagetools.rar) [更多下载](https://github.com/Five-great/tinymce-plugins/releases/tag/0.0.4)
    更多配置 见 [插件 / imagetools](http://tinymce.ax-z.cn/plugins/imagetools.php)
 
 ####  table 使用方法：
@@ -72,7 +72,7 @@ tinymce.init({
     }
 });
 ```
- [点击下载](https://github.com/Five-great/tinymce-plugins/releases/download/0.0.3/table.rar) [更多下载](https://github.com/Five-great/tinymce-plugins/releases/tag/0.0.3)
+ [点击下载](https://github.com/Five-great/tinymce-plugins/releases/download/0.0.4/table.rar) [更多下载](https://github.com/Five-great/tinymce-plugins/releases/tag/0.0.4)
    更多配置 见 [插件 / table](http://tinymce.ax-z.cn/plugins/table.php)
    
 ####  indent2em 使用方法：
@@ -86,7 +86,7 @@ tinymce.init({
     toolbar: "indent2em"
 });
 ```
- [点击下载](https://github.com/Five-great/tinymce-plugins/releases/download/0.0.3/indent2em.rar) [更多下载](https://github.com/Five-great/tinymce-plugins/releases/tag/0.0.3)
+ [点击下载](https://github.com/Five-great/tinymce-plugins/releases/download/0.0.4/indent2em.rar) [更多下载](https://github.com/Five-great/tinymce-plugins/releases/tag/0.0.4)
    更多配置 见 [插件 / indent2em](http://tinymce.ax-z.cn/more-plugins/indent2em.php)
 
 
@@ -99,7 +99,7 @@ tinymce.init({
     toolbar: "letterspacing"
 });
 ```
-[点击下载](https://github.com/Five-great/tinymce-plugins/releases/download/0.0.3/letterspacing.rar) [更多下载](https://github.com/Five-great/tinymce-plugins/releases/tag/0.0.3)
+[点击下载](https://github.com/Five-great/tinymce-plugins/releases/download/0.0.4/letterspacing.rar) [更多下载](https://github.com/Five-great/tinymce-plugins/releases/tag/0.0.4)
    
    更多配置(选配) :
  
@@ -124,17 +124,17 @@ tinymce.init({
     toolbar: "layout"
 });
 ```
-[点击下载](https://github.com/Five-great/tinymce-plugins/releases/download/0.0.3/layout.rar) [更多下载](https://github.com/Five-great/tinymce-plugins/releases/tag/0.0.3)
+[点击下载](https://github.com/Five-great/tinymce-plugins/releases/download/0.0.4/layout.rar) [更多下载](https://github.com/Five-great/tinymce-plugins/releases/tag/0.0.4)
 
    更多配置 (选配):
          
    提供 一键布局 默认参数字段  layout_options  配置参数【Object类型】目前一共4个属性：
    1. style : 一键布局默认样式参数【Object】
    2. filterTags： 【Array】过滤标签，该数组中的标签，一键布局中将会被忽略（默认忽略 'table','tbody','td','tr'）
-   3. clearStyle: 【Array】清除样式 ，一键布局后 ，数组中的样式将会清除掉。
-   4. tagsStyle： 单独标签样式处理【Object】
+   3. tagsStyle： 单独标签样式处理【Object】
+   4. clearStyle: 【Array】清除样式 ，一键布局后 ，数组中的样式将会清除掉。
 
-   配置优先级从低到高： style < filterTags < clearStyle < tagsStyle
+   配置优先级从低到高： style < filterTags < tagsStyle < clearStyle 
    
 ```javascript
 tinymce.init({
@@ -147,7 +147,7 @@ tinymce.init({
                    'text-indent':'2em',
                    'line-height': 1.5
                 },
-                filterTags：['table','tbody','td','tr'], //'table','tbody','td','tr' 将会被清除掉
+                filterTags：['table>*','tbody'], //'table，'tbody','td','tr' 将会忽略掉 同时 table>*，忽略table 标签 以及所有子标签
                 clearStyle: ['text-indent'],//text-indent 将会被清除掉
                 tagsStyle: {
                    'table': {
@@ -155,7 +155,10 @@ tinymce.init({
                        'text-align': 'center'
                    },
                   'table,tbody,tr,td': { //支持并集选择
-                    'line-height': 2,
+                    'line-height': 2
+                   },
+                   'tr>td,table>tbody': { //支持, 精准定位 通过 ' > '
+                    'line-height': 3,
                     'text-align': 'center'
                    }
                }
@@ -172,7 +175,7 @@ tinymce.init({
     toolbar: "importword"
 });
 ```
-[点击下载](https://github.com/Five-great/tinymce-plugins/releases/download/0.0.3/importword.rar) [更多下载](https://github.com/Five-great/tinymce-plugins/releases/tag/0.0.3)
+[点击下载](https://github.com/Five-great/tinymce-plugins/releases/download/0.0.4/importword.rar) [更多下载](https://github.com/Five-great/tinymce-plugins/releases/tag/0.0.4)
 
    更多配置(选配) :
          
@@ -227,7 +230,7 @@ tinymce.init({
 });
 ```
 
-[点击下载](https://github.com/Five-great/tinymce-plugins/releases/download/0.0.3/upfile.rar) [更多下载](https://github.com/Five-great/tinymce-plugins/releases/tag/0.0.3)
+[点击下载](https://github.com/Five-great/tinymce-plugins/releases/download/0.0.4/upfile.rar) [更多下载](https://github.com/Five-great/tinymce-plugins/releases/tag/0.0.4)
 
    更多配置(选配) :
          
