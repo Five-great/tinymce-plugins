@@ -1,5 +1,5 @@
 /**
- * indent2em (Enhancement 1.2v) 2021-01-12
+ * indent2em (Enhancement 1.5v) 2021-01-13
  * The tinymce-plugins is used to set the first line indent (Enhancement)
  * 
  * https://github.com/Five-great/tinymce-plugins
@@ -12,6 +12,14 @@ tinymce.PluginManager.add('indent2em', function(editor, url) {
     var pluginName='首行缩进';
     var global$1 = tinymce.util.Tools.resolve('tinymce.util.Tools');
     var indent2em_val = editor.getParam('indent2em_val', '2em');
+    editor.on('init', function() {
+        editor.formatter.register({
+            indent2em: {
+                selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table',
+                styles: { 'text-indent': '%value' },
+            }
+        });
+    });
     function _indent2$getValue( key, str ) { 
         var m = str.match( new RegExp(key + ':?(.+?)"?[;}]') );
         return m ? m[ 1 ] : false;
@@ -23,17 +31,17 @@ tinymce.PluginManager.add('indent2em', function(editor, url) {
         global$1.each(blocks, function (block) {
             let kv = "";
             let kl = "";
-             block.attributes.style? kl = _indent2$getValue('letter-spacing',block.attributes.style.textContent):''
-             if(block&&block.children['0']&&block.children['0'].attributes&&block.children['0'].attributes.style){
-              kv=_indent2$getValue('font-size',block.children['0'].attributes.style.textContent);
-              if(kv) {kv=(parseInt(kv)+parseInt((kl?kl:0)))*2+'px';}
-              else kv=(parseInt((kl?kl:0))+16)*2+'px';
-            }else kl?kv=(parseInt((kl?kl:0))+16)*2+'px':'';
+            if(block&&block.children['0']&&block.children['0'].attributes&&block.children['0'].attributes.style){
+                kv = _indent2$getValue('font-size',block.children['0'].attributes.style.textContent);
+                kl = _indent2$getValue('letter-spacing',block.children['0'].attributes.style.textContent);
+                if(kv) {kv=(parseInt(kv)+parseInt((kl?kl:0)))*2+'px';}
+                else kv=(parseInt((kl?kl:0))+16)*2+'px';
+            }
             if(act==''){
                 act = dom.getStyle(block,'text-indent') == (indent2em_val!='2em'?indent2em_val:kv?kv:'2em') ? 'remove' : 'add';
             }
             if( act=='add'){
-                dom.setStyle(block, 'text-indent', indent2em_val!='2em'?indent2em_val:kv?kv:'2em');
+                dom.setStyle(block, 'text-indent',indent2em_val!='2em'?indent2em_val:kv?kv:'2em');
             }else{
                 var style=dom.getAttrib(block,'style');
                 var reg = new RegExp('text-indent?(.+?)"?[;}]', 'ig');

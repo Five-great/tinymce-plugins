@@ -42,7 +42,7 @@ var xhrOnProgress = function (fun) {
                              items: 'alignleft aligncenter alignright alignjustify',
                          }
                   },
-                 toolbar: ['|code formatselect fontselect fontsizeselect  forecolor backcolor bold italic underline strikethrough link alignment indent2em outdent indent lineheight letterspacing bullist numlist blockquote subscript superscript  layout removeformat table image media upfile attachment importword charmap  hr pagebreak  clearhtml    bdmap  formatpainter  cut copy undo redo restoredraft  searchreplace fullscreen help'],
+                 toolbar: ['|code formatselect fontselect fontsizeselect forecolor backcolor bold italic underline strikethrough link alignment indent2em outdent indent lineheight letterspacing bullist numlist blockquote subscript superscript  layout removeformat table image media upfile attachment importword charmap  hr pagebreak  clearhtml    bdmap  formatpainter  cut copy undo redo restoredraft  searchreplace fullscreen help'],
                  table_style_by_css: true,
                  OperationManualHtml: '',
                  CommonProblemHtml: '',

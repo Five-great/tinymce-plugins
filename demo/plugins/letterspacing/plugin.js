@@ -1,5 +1,5 @@
 /**
- * letterspacing 1.2v 2021-1-12
+ * letterspacing 1.5v 2021-1-13
  * The tinymce-plugins is used to set the word spacing
  * 
  * https://github.com/Five-great/tinymce-plugins
@@ -15,8 +15,10 @@ tinymce.PluginManager.add('letterspacing', function(editor, url) {
     editor.on('init', function() {
         editor.formatter.register({
             letterspacing: {
-                selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table',
-                styles: { 'letter-spacing': '%value' }
+                inline: 'span',
+                toggle: false,
+                styles: { 'letter-spacing': '%value' },
+                clear_child_styles: true
             }
         });
     });
@@ -36,12 +38,12 @@ tinymce.PluginManager.add('letterspacing', function(editor, url) {
             if(dom.getStyle(block,'text-indent')){
                 let kv = "";
                 let kl = "";
-                 block.attributes.style? kl = _indent2$getValue('letter-spacing',block.attributes.style.textContent):''
                  if(block&&block.children['0']&&block.children['0'].attributes&&block.children['0'].attributes.style){
-                   kv=_indent2$getValue('font-size',block.children['0'].attributes.style.textContent);
+                   kv = _indent2$getValue('font-size',block.children['0'].attributes.style.textContent);
+                   kl = _indent2$getValue('letter-spacing',block.children['0'].attributes.style.textContent);
                    if(kv) {kv=(parseInt(kv)+parseInt((kl?kl:0)))*2+'px';}
                    else kv=(parseInt((kl?kl:0))+16)*2+'px';
-                 }else kl?kv=(parseInt((kl?kl:0))+16)*2+'px':'';
+                 }
                 dom.setStyle(block, 'text-indent', kv?kv:'2em');
             }
         });

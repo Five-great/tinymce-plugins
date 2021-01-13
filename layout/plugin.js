@@ -1,5 +1,5 @@
 /**
- * layout 1.3v  2021-01-12
+ * layout 1.5v  2020-01-13
  * The tinymce-plugins is used to set up a layout
  * 
  * https://github.com/Five-great/tinymce-plugins
@@ -71,12 +71,12 @@ tinymce.PluginManager.add('layout', function(editor, url) {
             }
             if(_style["text-indent"]){
             let kv = "",kl = "";
-            _block.attributes.style? kl = _indent2$getValue('letter-spacing',_block.attributes.style.textContent):'';
             if(_block&&_block.children['0']&&_block.children['0'].attributes&&_block.children['0'].attributes.style){
-                kv=_indent2$getValue('font-size',_block.children['0'].attributes.style.textContent);
+                kv = _indent2$getValue('font-size',_block.children['0'].attributes.style.textContent);
+                kl = _indent2$getValue('letter-spacing',_block.children['0'].attributes.style.textContent);
                 if(kv) {kv=(parseInt(kv)+parseInt((kl?kl:0)))*2+'px';}
                 else kv=(parseInt((kl?kl:0))+16)*2+'px';
-            }else kl?kv=(parseInt((kl?kl:0))+16)*2+'px':'';
+            }
             dom.setStyle(_block, 'text-indent', layout_opt.style['text-indent']&&layout_opt.style['text-indent']!='2em'?layout_opt.style['text-indent']: kv?kv:'2em');
            }
         }
