@@ -240,7 +240,7 @@ var xhrOnProgress = function (fun) {
                 branding: false,
                 min_height:400,
                 max_height: 700,
-                plugins: ' print preview clearhtml searchreplace insertdatetime autolink layout fullscreen image upfile link media code codesample table charmap hr pagebreak nonbreaking anchor advlist lists textpattern help emoticons autosave bdmap indent2em lineheight formatpainter axupimgs powerpaste letterspacing imagetools quickbars attachment wordcount autoresize importword',
+                plugins: ' print preview clearhtml searchreplace insertdatetime autolink layout fullscreen image upfile link media autosave code codesample table charmap hr pagebreak nonbreaking anchor advlist lists textpattern help emoticons autosave bdmap indent2em lineheight formatpainter axupimgs powerpaste letterspacing imagetools quickbars attachment wordcount autoresize importword',
                 toolbar_groups: {
                         formatting: {
                             text: '文字格式',
@@ -253,7 +253,7 @@ var xhrOnProgress = function (fun) {
                             items: 'alignleft aligncenter alignright alignjustify',
                         }
                  },
-                toolbar: ['|code formatselect fontselect fontsizeselect  forecolor backcolor bold italic underline strikethrough link alignment | ','layout upfile importword letterspacing indent2em table image imagetools insertdatetime'],
+                toolbar: ['|code formatselect fontselect fontsizeselect  forecolor backcolor bold italic underline strikethrough link alignment undo redo  restoredraft| ','layout upfile importword letterspacing indent2em table image imagetools'],
                 table_style_by_css: true,
                 OperationManualHtml: '',
                 CommonProblemHtml: '',
