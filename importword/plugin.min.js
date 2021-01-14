@@ -8,18 +8,6 @@
  *
  * Licensed under MIT
  */
-
-
-/*
- The buffer module from node.js, for the browser.
-
- @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
- @license  MIT
- Determine if an object is a Buffer
-
- @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
- @license  MIT
- http://mths.be/fromcodepoint v0.1.0 by @mathias */
  (function(pa){"object"===typeof exports&&"undefined"!==typeof module?module.exports=pa():"function"===typeof define&&define.amd?define([],pa):("undefined"!==typeof window?window:"undefined"!==typeof global?global:"undefined"!==typeof self?self:this).mammoth=pa()})(function(){return function n(x,W,C){function m(l,a){if(!W[l]){if(!x[l]){var c="function"==typeof require&&require;if(!a&&c)return c(l,!0);if(g)return g(l,!0);a=Error("Cannot find module '"+l+"'");throw a.code="MODULE_NOT_FOUND",a;}a=W[l]=
  {exports:{}};x[l][0].call(a.exports,function(t){var p=x[l][1][t];return m(p?p:t)},a,a.exports,n,x,W,C)}return W[l].exports}for(var g="function"==typeof require&&require,b=0;b<C.length;b++)m(C[b]);return m}({1:[function(x,W,C){var n=x("../../lib/promises");C.Files=function(){return{read:function(m){return n.reject(Error("could not open external image: '"+m+"'\ncannot open linked files from a web browser"))}}}},{"../../lib/promises":23}],2:[function(x,W,C){var n=x("../lib/promises"),m=x("../lib/zipfile");
  C.openZip=function(g){return g.arrayBuffer?n.resolve(m.openArrayBuffer(g.arrayBuffer)):n.reject(Error("Could not find file in options"))}},{"../lib/promises":23,"../lib/zipfile":38}],3:[function(x,W,C){function n(z,M){function f(h,w,P){return b(h,function(e){return N(e,w,P)})}function N(h,w,P){if(!P)throw Error("options not set");var e=A[h.type];return e?e(h,w,P):[]}function T(h,w){var P=G(h);if(P)return P.to;h.styleId&&w.push(g("paragraph",h));return X}function q(h,w){return(h=F({type:h}))?h:w?p.element(w,
