@@ -1,5 +1,5 @@
 /**
- * layout 1.5v  2020-01-13
+ * layout 1.5v  2020-01-14
  * The tinymce-plugins is used to set up a layout
  * 
  * https://github.com/Five-great/tinymce-plugins
@@ -96,13 +96,17 @@ tinymce.PluginManager.add('layout', function(editor, url) {
         icon: 'layout',
         tooltip: pluginName,
         onAction: function () {
-            doAct();
+            editor.undoManager.transact(function(){
+                doAct();
+             })
         }
     });
     editor.ui.registry.addMenuItem('layout', {
         text: pluginName,
         onAction: function() {
-            doAct();
+            editor.undoManager.transact(function(){
+               doAct();
+            })
         }
     });
     return {

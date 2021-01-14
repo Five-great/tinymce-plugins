@@ -25,30 +25,31 @@ tinymce.PluginManager.add('indent2em', function(editor, url) {
         return m ? m[ 1 ] : false;
     }
     var doAct = function () {
-        var dom = editor.dom;
-        var blocks = editor.selection.getSelectedBlocks();
-        var act = '';
-        global$1.each(blocks, function (block) {
-            let kv = "";
-            let kl = "";
-            if(block&&block.children['0']&&block.children['0'].attributes&&block.children['0'].attributes.style){
-                kv = _indent2$getValue('font-size',block.children['0'].attributes.style.textContent);
-                kl = _indent2$getValue('letter-spacing',block.children['0'].attributes.style.textContent);
-                if(kv) {kv=(parseInt(kv)+parseInt((kl?kl:0)))*2+'px';}
-                else kv=(parseInt((kl?kl:0))+16)*2+'px';
-            }
-            if(act==''){
-                act = dom.getStyle(block,'text-indent') == (indent2em_val!='2em'?indent2em_val:kv?kv:'2em') ? 'remove' : 'add';
-            }
-            if( act=='add'){
-                dom.setStyle(block, 'text-indent',indent2em_val!='2em'?indent2em_val:kv?kv:'2em');
-            }else{
-                var style=dom.getAttrib(block,'style');
-                var reg = new RegExp('text-indent?(.+?)"?[;}]', 'ig');
-                style = style.replace(reg, '');
-                dom.setAttrib(block,'style',style);
-            }
-
+        editor.undoManager.transact(function(){
+            var dom = editor.dom;
+            var blocks = editor.selection.getSelectedBlocks();
+            var act = '';
+            global$1.each(blocks, function (block) {
+                let kv = "";
+                let kl = "";
+                if(block&&block.children['0']&&block.children['0'].attributes&&block.children['0'].attributes.style){
+                    kv = _indent2$getValue('font-size',block.children['0'].attributes.style.textContent);
+                    kl = _indent2$getValue('letter-spacing',block.children['0'].attributes.style.textContent);
+                    if(kv) {kv=(parseInt(kv)+parseInt((kl?kl:0)))*2+'px';}
+                    else kv=(parseInt((kl?kl:0))+16)*2+'px';
+                }
+                if(act==''){
+                    act = dom.getStyle(block,'text-indent') == (indent2em_val!='2em'?indent2em_val:kv?kv:'2em') ? 'remove' : 'add';
+                }
+                if( act=='add'){
+                    dom.setStyle(block, 'text-indent',indent2em_val!='2em'?indent2em_val:kv?kv:'2em');
+                }else{
+                    var style=dom.getAttrib(block,'style');
+                    var reg = new RegExp('text-indent?(.+?)"?[;}]', 'ig');
+                    style = style.replace(reg, '');
+                    dom.setAttrib(block,'style',style);
+                }
+            });
         });
     };
     editor.ui.registry.getAll().icons.indent2em || editor.ui.registry.addIcon('indent2em','<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M170.666667 563.2v-102.4H887.466667v102.4zM170.666667 836.266667v-102.4H887.466667v102.4zM512 290.133333v-102.4H887.466667v102.4zM238.933333 341.333333V136.533333l204.8 102.4z" fill="#2c2c2c" p-id="5210"></path></svg>');

@@ -1,5 +1,5 @@
 /**
- * letterspacing 1.5v 2021-1-13
+ * letterspacing 1.5v 2021-1-14
  * The tinymce-plugins is used to set the word spacing
  * 
  * https://github.com/Five-great/tinymce-plugins
@@ -23,15 +23,13 @@ tinymce.PluginManager.add('letterspacing', function(editor, url) {
         });
     });
     var doAct = function (value) {
-        editor.formatter.apply('letterspacing', { value: value });
-        editor.fire('change', {});
-        upIndent2em();
+        upIndent2em(value);
     };
     function _indent2$getValue( key, str ) { 
         var m = str.match( new RegExp(key + ':?(.+?)"?[;}]') );
         return m ? m[ 1 ] : false;
     }
-    function upIndent2em(){
+    function upIndent2em(value){
         var dom = editor.dom;
         var blocks = editor.selection.getSelectedBlocks();
         global$1.each(blocks, function(block) {
@@ -40,35 +38,30 @@ tinymce.PluginManager.add('letterspacing', function(editor, url) {
                 let kl = "";
                  if(block&&block.children['0']&&block.children['0'].attributes&&block.children['0'].attributes.style){
                    kv = _indent2$getValue('font-size',block.children['0'].attributes.style.textContent);
-                   kl = _indent2$getValue('letter-spacing',block.children['0'].attributes.style.textContent);
+                   kl = value;
                    if(kv) {kv=(parseInt(kv)+parseInt((kl?kl:0)))*2+'px';}
                    else kv=(parseInt((kl?kl:0))+16)*2+'px';
                  }
                 dom.setStyle(block, 'text-indent', kv?kv:'2em');
             }
+         
         });
-        // console.log("111")
+        editor.undoManager.transact(function(){
+            editor.formatter.apply('letterspacing', { value: value });
+            editor.fire('change', {});
+        })
     }
-    editor.ui.registry.getAll().icons.letterspacing || editor.ui.registry.addIcon('letterspacing','<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 1024 1024"><path d="M33.450667 3.413333h102.4v956.8256H33.450667V3.413333z m887.330133 1.8432h102.4v957.713067h-102.4V5.188267z m-425.301333 200.704h108.9536l223.6416 584.977067h-102.4l-53.248-146.6368H427.485867l-53.248 146.6368h-102.4l223.6416-584.9088z m-39.3216 359.697067H643.754667L552.004267 309.248h-3.2768L456.157867 565.6576z" ></path></svg>');
+    editor.ui.registry.getAll().icons.letterspacing || editor.ui.registry.addIcon('letterspacing','<svg t="1610616201691" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="969" width="24" height="24"><path d="M682.666667 704l128 106.666667-128 106.666666v-85.333333H341.333333v85.333333L213.333333 810.666667l128-106.666667v85.333333h341.333334v-85.333333zM170.666667 170.666667v682.666666H85.333333V170.666667h85.333334z m768 0v682.666666h-85.333334V170.666667h85.333334z m-394.666667 0l202.666667 469.333333h-89.6l-38.4-93.866667h-213.333334L366.933333 640H277.333333l202.666667-469.333333h64zM512 255.146667L432.213333 469.333333h159.573334L512 255.146667z" p-id="970" fill="#222f3e"></path></svg>');
     editor.ui.registry.addMenuButton('letterspacing', {
         icon: 'letterspacing',
         tooltip: pluginName,
         fetch: function(callback) {
-            var dom = editor.dom;
-            var blocks = editor.selection.getSelectedBlocks();
-            var lhv = 0;
-            global$1.each(blocks, function(block) {
-                if(lhv==0){
-                    lhv = dom.getStyle(block,'letter-spacing') ? dom.getStyle(block,'letter-spacing') : 0;
-                }
-            });
             var items = letterspacing_val.split(' ').map(function(item){
                 var text = item;
                 var value = item;
                 return {
                     type: 'togglemenuitem',
                     text: text,
-                    active : lhv==value ? true :false,
                     onAction: function() {
                         doAct(value);
                     }
