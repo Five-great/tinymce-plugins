@@ -199,7 +199,7 @@ tinymce.init({
     importword_handler: function(editor,files,next){
                 var file_name = files[0].name
                 if(file_name.substr(file_name.lastIndexOf(".")+1)=='docx'){
-                    notificationID = editor.notificationManager.open({
+                    editor.notificationManager.open({
                         text: '正在转换中...',
                         type: 'info',
                         closeButton: false,
