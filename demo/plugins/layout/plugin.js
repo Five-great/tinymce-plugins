@@ -97,6 +97,7 @@ tinymce.PluginManager.add('layout', function(editor, url) {
         tooltip: pluginName,
         onAction: function () {
             editor.undoManager.transact(function(){
+                editor.focus();
                 doAct();
              })
         }
@@ -105,6 +106,7 @@ tinymce.PluginManager.add('layout', function(editor, url) {
         text: pluginName,
         onAction: function() {
             editor.undoManager.transact(function(){
+               editor.focus();
                doAct();
             })
         }

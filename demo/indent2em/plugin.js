@@ -26,6 +26,7 @@ tinymce.PluginManager.add('indent2em', function(editor, url) {
     }
     var doAct = function () {
         editor.undoManager.transact(function(){
+            editor.focus();
             var dom = editor.dom;
             var blocks = editor.selection.getSelectedBlocks();
             var act = '';

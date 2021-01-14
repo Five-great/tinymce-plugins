@@ -32,6 +32,7 @@ tinymce.PluginManager.add('letterspacing', function(editor, url) {
     function upIndent2em(value){
         var dom = editor.dom;
         var blocks = editor.selection.getSelectedBlocks();
+        
         global$1.each(blocks, function(block) {
             if(dom.getStyle(block,'text-indent')){
                 let kv = "";
@@ -47,8 +48,8 @@ tinymce.PluginManager.add('letterspacing', function(editor, url) {
          
         });
         editor.undoManager.transact(function(){
+            editor.focus();
             editor.formatter.apply('letterspacing', { value: value });
-            editor.fire('change', {});
         })
     }
     editor.ui.registry.getAll().icons.letterspacing || editor.ui.registry.addIcon('letterspacing','<svg t="1610616201691" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="969" width="24" height="24"><path d="M682.666667 704l128 106.666667-128 106.666666v-85.333333H341.333333v85.333333L213.333333 810.666667l128-106.666667v85.333333h341.333334v-85.333333zM170.666667 170.666667v682.666666H85.333333V170.666667h85.333334z m768 0v682.666666h-85.333334V170.666667h85.333334z m-394.666667 0l202.666667 469.333333h-89.6l-38.4-93.866667h-213.333334L366.933333 640H277.333333l202.666667-469.333333h64zM512 255.146667L432.213333 469.333333h159.573334L512 255.146667z" p-id="970" fill="#222f3e"></path></svg>');
