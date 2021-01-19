@@ -251,5 +251,28 @@ tinymce.init({
 });
 ```
 
+# 在vue当中使用
+
+只需将插件下载后引用到安装目录中
+
+```javscript
+
+|-- node_modules
+| ...
+|   |-- tinymce
+|   | .
+|   |-- |-- plugins
+|   |   |   |-- letterspacing
+|   |   |   |-- layout
+|   |   |   |-- indent2em
+|   |   |   |-- importword
+|   |   |   |-- imagetools
+|   |   |   |-- table
+|   |   |   |-- upfile
+| ...
+
+```
+
+
 #### 欢迎提出建议，动手点赞 ，或提pr
    
