@@ -11,11 +11,12 @@ This is tinymce plugins
 
 [项目demo地址](http://fivecc.gitee.io/tinymce-plugins/demo/)
 
-[CSDN 博客](https://blog.csdn.net/qq_41923622/article/details/111810804)
+[CSDN 博客](https://fivecc.blog.csdn.net/article/details/111810804)
 
 [个人博客](https://fivecc.cn)
 
 QQ邮箱: fivecc@qq.com
+
 
 ## 简述
 This is tinymce plugins
@@ -29,11 +30,18 @@ This is tinymce plugins
  - [x]  layout： 一键布局插件。可以给文档段落进行一键快速排版布局；
  - [x]  importword： 导入word插件。可以直接导入word ,并且保证word中图片不会丢失，自动转为base64;
  - [x]  upfile： 文件上传。可以点击导入文件，可自定义编辑文件名;
- - [ ]  bdmap： 百度地图： 支持更改尺寸，自定义标签，开启导航功能（后续抽取整理）;
+ - [x]  bdmap： 百度地图。 支持更改尺寸，自定义标签，开启导航功能,支持vue;
+ - [x]  axupimgs: 多图上传。可同时上传多组图片，支持vue;
+ - [x]  attachment: 附件上传。拥有附件类型对应图标，支持vue;
  
- 
+## 下载
+
+```bash
+ npm i @npkg/tinymce-plugins 或 cnpm i @npkg/tinymce-plugins -D
+```
 ## 使用说明
   未使用过 tinymce ，可以查看莫若卿大佬的 [tinymce  中文文档 ](http://tinymce.ax-z.cn/)
+
    ####  imagetools 使用方法：
   增强效果：
   ![在这里插入图片描述](https://s3.ax1x.com/2020/12/28/ro4Lng.png)
@@ -250,6 +258,132 @@ tinymce.init({
     }
 });
 ```
+####  bdmap 使用方法：
+
+```javascript
+tinymce.init({
+    selector: '#tinydemo',
+    plugins: "bdmap",
+    toolbar: "bdmap"
+});
+```
+
+[点击下载](https://github.com/Five-great/tinymce-plugins/releases/download/0.0.5/bdmap.rar) [更多下载](https://github.com/Five-great/tinymce-plugins/releases/tag/0.0.5)
+
+   更多配置(选配) :
+         
+   提供 `bdmap` 插件 `bdmap_options` 配置参数【object】 传入 4 个参数
+   1. width: 百度地图默认宽度 默认 560
+   2. height: 百度地图默认高度 默认 360
+   3. outputIframe: 百度地图输出iframe路径， 默认 '.' （当前路径） `Vue` 默认 'https://unpkg.com/@npkg/tinymce-plugins/plugins/bdmap/bd.html'
+   4. apiKey:  自定义百度地图apiKey `Vue` 中有效
+
+```javascript
+tinymce.init({
+    selector: '#tinydemo',
+    plugins: "bdmap",
+    toolbar: "bdmap",
+    bdmap_options: {
+        width: 560,
+        height: 360,
+        outputIframe: 'https://unpkg.com/@npkg/tinymce-plugins',
+        apiKey: 'ONXXXXXXXXXXXXXXnP'
+    }
+});
+```
+
+####  axupimgs（Vue）使用方法：
+
+```javascript
+tinymce.init({
+    selector: '#tinydemo',
+    plugins: "axupimgs",
+    toolbar: "axupimgs"
+});
+```
+
+[点击下载](https://github.com/Five-great/tinymce-plugins/releases/download/0.0.5/axupimgs.rar) [更多下载](https://github.com/Five-great/tinymce-plugins/releases/tag/0.0.5)
+
+更多配置 见 [插件 / axupimgs](http://tinymce.ax-z.cn/more-plugins/axupimgs.php)
+
+#### attachment 使用方法：
+
+```javascript
+tinymce.init({
+    selector: '#tinydemo',
+    plugins: "attachment",
+    toolbar: "attachment"
+});
+```
+
+[点击下载](https://github.com/Five-great/tinymce-plugins/releases/download/0.0.5/attachment.rar) [更多下载](https://github.com/Five-great/tinymce-plugins/releases/tag/0.0.5)
+
+   更多配置(选配) :
+         
+   提供 `attachment` 插件  提供 `attachment_max_size`，`attachment_style`,`attachment_icons_path`,`attachment_upload_handler` 配置参数
+   attachment_max_size: 附件大小限制  默认 209715200 （200M）【number】 
+   attachment_style: 附件的样式，主要为保存数据后可以直接在其他页面展示。 【string】 
+   attachment_icons_path： 附件的 图标的路径 icons ， 默认 当前路径  `Vue` 默认 'https://unpkg.com/@npkg/tinymce-plugins/plugins/attachment/icons'
+   attachment_upload_handler： 附件上传处理函数 【function】 function(file, succFun, failFun, progressCallback)
+   
+   1. file : 文件对象【file】
+   2. succFun : 成功回调函数 传入 (url|string)
+   3. failFun : 失败回调函数 传入 (string)
+   4. progressCallback: 进程回调函数 传入 (string)
+
+
+```javascript
+
+var xhrOnProgress = function (fun) {
+    xhrOnProgress.onprogress = fun;
+    return function () {
+        var xhr = $.ajaxSettings.xhr();
+        if (typeof xhrOnProgress.onprogress !== 'function')
+            return xhr;
+        if (xhrOnProgress.onprogress && xhr.upload) {
+            xhr.upload.onprogress = xhrOnProgress.onprogress;
+        }
+        return xhr;
+    }
+  }
+
+tinymce.init({
+    selector: '#tinydemo',
+    plugins: "attachment",
+    toolbar: "attachment",
+    attachment_max_size: 209715200,
+    attachment_style:'.attachment>img{display:inline-block!important;max-width:30px!important;}'
+    attachment_icons_path: 'https://unpkg.com/@npkg/tinymce-plugins/plugins/attachment/icons',
+    attachment_upload_handler: function (file, succFun, failFun, progressCallback) {
+            var data = new FormData();
+            data.append("file", file);
+            $.ajax({
+                data: data,
+                type: 'GET',
+                url: './api/file.json',
+                cache: false,
+                contentType: false,
+                processData: false,
+                header:{'Content-Type':'multipart/form-data'},
+                dataType: 'json',
+                xhr: xhrOnProgress(function (e) {
+                    const percent = (e.loaded / e.total * 100 | 0) + '%';//计算百分比
+                    progressCallback(percent);
+                }),
+            }).then(function (data) {
+                if ( data.code== 200) {
+                    succFun(data.data);
+                } else {
+                    failFun('上传失败:' + data.data);
+                }
+            }).fail(function (error) {
+                failFun('上传失败:' + error.message)
+            });
+        },
+
+        
+});
+```
 
 # 在vue当中使用
 
@@ -268,11 +402,29 @@ tinymce.init({
 |   |   |   |-- importword
 |   |   |   |-- imagetools
 |   |   |   |-- table
-|   |   |   |-- upfile
+|   |   |   |-- bdmap
+|   |   |   |-- axupimgs
+|   |   |   |-- attachment
 | ...
 
 ```
+#### 引入
 
+可以全部引入
+```javascript
+ import '@npkg/tinymce-plugins'
+```
+也可以按需引入
+```javascript
+import '@npkg/tinymce-plugins/importword' 
+import '@npkg/tinymce-plugins/lineheight' 
+import '@npkg/tinymce-plugins/layout' 
+import '@npkg/tinymce-plugins/letterspacing' 
+import '@npkg/tinymce-plugins/indent2em' 
+import '@npkg/tinymce-plugins/upfile' 
+import '@npkg/tinymce-plugins/imagetools'
+import '@npkg/tinymce-plugins/attachment'
 
+```
 #### 欢迎提出建议，动手点赞 ，或提pr
    
