@@ -87,7 +87,6 @@ tinymce.PluginManager.add('letterspacing', function(editor, url) {
             var dom = editor.dom;
             var block = editor.selection.getStart();
             var lhv = 0;
-                console.dir(block)
                 block = getChildren(block,'span')
                 if(lhv==0){
                     lhv = dom.getStyle(block,'letter-spacing') ? dom.getStyle(block,'letter-spacing') : 0;
@@ -95,7 +94,6 @@ tinymce.PluginManager.add('letterspacing', function(editor, url) {
             var items = letterspacing_val.split(' ').map(function(item){
                 var text = item;
                 var value = item;
-                console.log(lhv)
                 return {
                     type: 'togglemenuitem',
                     text: text,
