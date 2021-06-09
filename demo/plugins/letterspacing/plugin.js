@@ -1,5 +1,6 @@
-/**
- * letterspacing 1.5v 2021-1-14
+
+ /**
+ * letterspacing 1.6v 2021-5-14
  * The tinymce-plugins is used to set the word spacing
  * 
  * https://github.com/Five-great/tinymce-plugins
@@ -16,15 +17,42 @@ tinymce.PluginManager.add('letterspacing', function(editor, url) {
         editor.formatter.register({
             letterspacing: {
                 inline: 'span',
-                toggle: false,
                 styles: { 'letter-spacing': '%value' },
-                clear_child_styles: true
             }
         });
     });
     var doAct = function (value) {
         upIndent2em(value);
     };
+    function getChildren(curEle,tagName){
+        if( curEle.nodeName.toLowerCase() === tagName){ return curEle;}
+        var nodeList = curEle.childNodes;
+        var ary = [];
+        if(/MSIE(6|7|8)/.test(navigator.userAgent)){
+            for(var i=0;i<nodeList.length;i++){
+                var curNode = nodeList[i];
+                if(curNode.nodeType ===1){
+                   ary[ary.length] = curNode;
+                }
+            }
+        }else{
+            ary = Array.prototype.slice.call(curEle.children);
+        }
+        
+        // 获取指定子元素
+        if(typeof tagName === "string"){
+         
+            for(var k=0;k<ary.length;k++){
+              curTag = ary[k];
+              if(curTag.nodeName.toLowerCase() !== tagName.toLowerCase()){
+               ary.splice(k,1);
+               k--;
+              }
+            }
+        }
+
+        return ary[0];
+  }
     function _indent2$getValue( key, str ) { 
         var m = str.match( new RegExp(key + ':?(.+?)"?[;}]') );
         return m ? m[ 1 ] : false;
@@ -32,7 +60,6 @@ tinymce.PluginManager.add('letterspacing', function(editor, url) {
     function upIndent2em(value){
         var dom = editor.dom;
         var blocks = editor.selection.getSelectedBlocks();
-        
         global$1.each(blocks, function(block) {
             if(dom.getStyle(block,'text-indent')){
                 let kv = "";
@@ -57,12 +84,22 @@ tinymce.PluginManager.add('letterspacing', function(editor, url) {
         icon: 'letterspacing',
         tooltip: pluginName,
         fetch: function(callback) {
+            var dom = editor.dom;
+            var block = editor.selection.getStart();
+            var lhv = 0;
+                console.dir(block)
+                block = getChildren(block,'span')
+                if(lhv==0){
+                    lhv = dom.getStyle(block,'letter-spacing') ? dom.getStyle(block,'letter-spacing') : 0;
+                }
             var items = letterspacing_val.split(' ').map(function(item){
                 var text = item;
                 var value = item;
+                console.log(lhv)
                 return {
                     type: 'togglemenuitem',
                     text: text,
+                    active : lhv==value ? true :false,
                     onAction: function() {
                         doAct(value);
                     }
