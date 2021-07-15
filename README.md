@@ -34,7 +34,7 @@ This is tinymce plugins
  - [x]  axupimgs: 多图上传。可同时上传多组图片，支持vue;
  - [x]  attachment: 附件上传。拥有附件类型对应图标，支持vue;
  
-## 下载
+## 下载(强烈建议)
 
 ```bash
  npm i @npkg/tinymce-plugins 或 cnpm i @npkg/tinymce-plugins -D
