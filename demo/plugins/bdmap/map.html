@@ -430,11 +430,11 @@
 			var keyword = document.getElementById("kw").value;
 			localSearch.setSearchCompleteCallback(function (searchResult) {
 				// console.log(searchResult);
-				if(searchResult.Ar.length==0){
+				if(searchResult.Br.length==0){
 					alert('搜索不到该地区');
 					return false;
 				}
-				var poi = searchResult.getPoi(0);
+				var poi = searchResult.Br[0];
 				map.centerAndZoom(poi.point, 14);
 			    marker = new BMap.Marker(new BMap.Point(poi.point.lng, poi.point.lat));
 				parent.tinymceLng=poi.point.lng;
