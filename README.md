@@ -4,6 +4,12 @@ This is tinymce plugins
 ## 前言
 因为项目需要用到富文本编辑器众多富文本编辑器中，选择了 Tinymce，根据项目需要对Tinymce 进行扩展和增强插件，记录一下，并同时分享给需要帮助的人。
 
+**目前正在全力调整重构** 
+[尽情期待](https://tinymce-plugin.github.io/)
+先睹为快可访问：
+https://tinymce-plugin.github.io/
+https://tinymce-plugin.gitee.io/
+https://tinymce-plugin.vercel.app/
 
 [tinymce 官方文档]( https://www.tiny.cloud/docs/)
 
