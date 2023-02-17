@@ -1,0 +1,35 @@
+{
+  "name": "@npkg/tinymce-plugins",
+  "version": "0.0.7",
+  "description": "该项目是对Tinymce 进行扩展和增强插件集合",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Five-great/npkg_tinymce-plugins.git"
+  },
+  "keywords": [
+    "tinymce-plugins",
+    "plugins",
+    "importword",
+    "layout",
+    "letterspacing",
+    "indent2em",
+    "table",
+    "upfile",
+    "bdmap",
+    "axupimgs",
+    "attachment"
+  ],
+  "dependencies": {
+    "wx-wow": "latest"
+  },
+  "author": "Li Hailong",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Five-great/tinymce-plugins/issues"
+  },
+  "homepage": "https://github.com/Five-great/tinymce-plugins#readme"
+}
